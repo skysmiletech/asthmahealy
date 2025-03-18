@@ -6,7 +6,8 @@ import {
   Heart, 
   Brain, 
   MessageCircle, 
-  StethoscopeIcon, 
+  StethoscopeIcon,
+  Leaf,
   ChevronRight,
   Users,
   Shield,
@@ -22,7 +23,10 @@ export default function HomePage() {
       <nav className="border-b sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <StethoscopeIcon className="h-6 w-6 text-primary" />
+            <div className="flex items-center gap-1">
+              <Leaf className="h-6 w-6 text-primary" />
+              <StethoscopeIcon className="h-6 w-6" />
+            </div>
             <span className="text-xl font-semibold">AsthmaAI Assistant</span>
           </div>
           <div>

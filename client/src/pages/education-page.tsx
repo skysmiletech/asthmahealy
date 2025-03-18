@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { LogOut, Activity, MessageCircle, Stethoscope as StethoscopeIcon } from "lucide-react";
+import { LogOut, Activity, MessageCircle, StethoscopeIcon, Leaf } from "lucide-react";
 
 export default function EducationPage() {
   const { user, logoutMutation } = useAuth();
@@ -13,7 +13,10 @@ export default function EducationPage() {
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/">
             <span className="text-xl font-semibold cursor-pointer flex items-center gap-2">
-              <StethoscopeIcon className="h-6 w-6 text-primary" />
+              <div className="flex items-center gap-1">
+                <Leaf className="h-6 w-6 text-primary" />
+                <StethoscopeIcon className="h-6 w-6" />
+              </div>
               AsthmaAI Assistant
             </span>
           </Link>

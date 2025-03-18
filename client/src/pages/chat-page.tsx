@@ -4,7 +4,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Loader2, SendIcon, LogOut, Activity, BookOpen } from "lucide-react";
+import { Loader2, SendIcon, LogOut, Activity, BookOpen, Leaf, StethoscopeIcon } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import type { Message } from "@shared/schema";
 import { Link } from "wouter";
@@ -43,7 +43,13 @@ export default function ChatPage() {
       <nav className="border-b">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/">
-            <span className="text-xl font-semibold cursor-pointer">AsthmaAI Assistant</span>
+            <span className="text-xl font-semibold cursor-pointer flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                <Leaf className="h-6 w-6 text-primary" />
+                <StethoscopeIcon className="h-6 w-6" />
+              </div>
+              AsthmaAI Assistant
+            </span>
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/education">

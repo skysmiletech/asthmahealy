@@ -16,7 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { insertUserSchema } from "@shared/schema";
 import type { InsertUser } from "@shared/schema";
-import { StethoscopeIcon } from "lucide-react";
+import { StethoscopeIcon, Leaf } from "lucide-react";
 
 export default function AuthPage() {
   const { user, loginMutation, registerMutation } = useAuth();
@@ -47,7 +47,10 @@ export default function AuthPage() {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold flex items-center justify-center gap-2">
-              <StethoscopeIcon className="h-6 w-6" />
+              <div className="flex items-center gap-1">
+                <Leaf className="h-6 w-6 text-primary" />
+                <StethoscopeIcon className="h-6 w-6" />
+              </div>
               AsthmaAI Assistant
             </CardTitle>
           </CardHeader>

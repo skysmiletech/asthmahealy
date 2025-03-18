@@ -28,7 +28,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
-import { LogOut, Plus, Loader2 } from "lucide-react";
+import { LogOut, Plus, Loader2, Leaf, StethoscopeIcon } from "lucide-react";
 
 export default function SymptomsPage() {
   const { user, logoutMutation } = useAuth();
@@ -81,7 +81,11 @@ export default function SymptomsPage() {
       <nav className="border-b">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/">
-            <span className="text-xl font-semibold cursor-pointer">
+            <span className="text-xl font-semibold cursor-pointer flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                <Leaf className="h-6 w-6 text-primary" />
+                <StethoscopeIcon className="h-6 w-6" />
+              </div>
               AsthmaAI Assistant
             </span>
           </Link>
