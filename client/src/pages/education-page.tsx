@@ -94,37 +94,7 @@ export default function EducationPage() {
                     <li>• Respiratory infections</li>
                   </ul>
                 </div>
-
-                <div>
-                  <h3 className="font-semibold mb-2">Lifestyle Recommendations</h3>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li>• Maintain a clean living environment</li>
-                    <li>• Monitor air quality</li>
-                    <li>• Stay hydrated</li>
-                    <li>• Get regular exercise as tolerated</li>
-                    <li>• Manage stress levels</li>
-                  </ul>
-                </div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Action Plan */}
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle>Your Asthma Action Plan</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="mb-4 text-muted-foreground">
-                Work with your healthcare provider to create a personalized asthma action plan. 
-                This should include:
-              </p>
-              <ul className="space-y-2 text-muted-foreground">
-                <li>• List of daily medications</li>
-                <li>• Instructions for worsening symptoms</li>
-                <li>• Emergency contact information</li>
-                <li>• Triggers to avoid</li>
-              </ul>
             </CardContent>
           </Card>
 
@@ -135,20 +105,12 @@ export default function EducationPage() {
               Our AI assistant can provide more detailed information about asthma management
               and answer your specific questions.
             </p>
-            <div className="flex gap-4">
-              <Link href="/chat">
-                <Button className="gap-2">
-                  <MessageCircle className="h-4 w-4" />
-                  Chat with AI Assistant
-                </Button>
-              </Link>
-              <Link href="/symptoms">
-                <Button variant="outline" className="gap-2">
-                  <Activity className="h-4 w-4" />
-                  Track Your Symptoms
-                </Button>
-              </Link>
-            </div>
+            <Link href="/chat">
+              <Button className="gap-2">
+                <MessageCircle className="h-4 w-4" />
+                Chat with AI Assistant
+              </Button>
+            </Link>
           </div>
         </div>
       </main>
