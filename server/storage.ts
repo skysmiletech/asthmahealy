@@ -1,5 +1,5 @@
 import { IStorage } from "./storage";
-import { User, Message, InsertUser, InsertMessage } from "@shared/schema";
+import { User, Message, Symptom, InsertUser, InsertMessage, InsertSymptom } from "@shared/schema";
 import session from "express-session";
 import createMemoryStore from "memorystore";
 
@@ -11,21 +11,27 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   saveMessage(message: InsertMessage & { userId: number, timestamp: string }): Promise<Message>;
   getMessagesByUser(userId: number): Promise<Message[]>;
+  saveSymptom(symptom: InsertSymptom & { userId: number, timestamp: string }): Promise<Symptom>;
+  getSymptomsByUser(userId: number): Promise<Symptom[]>;
   sessionStore: session.Store;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
   private messages: Map<number, Message>;
+  private symptoms: Map<number, Symptom>;
   private currentUserId: number;
   private currentMessageId: number;
+  private currentSymptomId: number;
   sessionStore: session.Store;
 
   constructor() {
     this.users = new Map();
     this.messages = new Map();
+    this.symptoms = new Map();
     this.currentUserId = 1;
     this.currentMessageId = 1;
+    this.currentSymptomId = 1;
     this.sessionStore = new MemoryStore({
       checkPeriod: 86400000,
     });
@@ -59,6 +65,19 @@ export class MemStorage implements IStorage {
     return Array.from(this.messages.values())
       .filter(message => message.userId === userId)
       .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+  }
+
+  async saveSymptom(symptom: InsertSymptom & { userId: number, timestamp: string }): Promise<Symptom> {
+    const id = this.currentSymptomId++;
+    const newSymptom: Symptom = { ...symptom, id };
+    this.symptoms.set(id, newSymptom);
+    return newSymptom;
+  }
+
+  async getSymptomsByUser(userId: number): Promise<Symptom[]> {
+    return Array.from(this.symptoms.values())
+      .filter(symptom => symptom.userId === userId)
+      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
   }
 }
 

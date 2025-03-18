@@ -3,11 +3,47 @@ import { createServer, type Server } from "http";
 import { setupAuth } from "./auth";
 import { openai } from "./openai";
 import { storage } from "./storage";
-import { insertMessageSchema } from "@shared/schema";
+import { insertMessageSchema, insertSymptomSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   setupAuth(app);
 
+  app.post("/api/symptoms", async (req, res) => {
+    if (!req.isAuthenticated()) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const validation = insertSymptomSchema.safeParse(req.body);
+    if (!validation.success) {
+      return res.status(400).json({ message: "Invalid symptom data" });
+    }
+
+    try {
+      const symptom = await storage.saveSymptom({
+        ...req.body,
+        userId: req.user.id,
+        timestamp: new Date().toISOString()
+      });
+      res.status(201).json(symptom);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to save symptom" });
+    }
+  });
+
+  app.get("/api/symptoms", async (req, res) => {
+    if (!req.isAuthenticated()) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    try {
+      const symptoms = await storage.getSymptomsByUser(req.user.id);
+      res.json(symptoms);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch symptoms" });
+    }
+  });
+
+  // Existing chat routes
   app.post("/api/chat", async (req, res) => {
     if (!req.isAuthenticated()) {
       return res.status(401).json({ message: "Unauthorized" });

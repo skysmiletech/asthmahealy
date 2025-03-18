@@ -4,7 +4,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Loader2, SendIcon, LogOut } from "lucide-react";
+import { Loader2, SendIcon, LogOut, Activity } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import type { Message } from "@shared/schema";
 import { Link } from "wouter";
@@ -46,6 +46,12 @@ export default function ChatPage() {
             <span className="text-xl font-semibold cursor-pointer">AsthmaAI Assistant</span>
           </Link>
           <div className="flex items-center gap-4">
+            <Link href="/symptoms">
+              <Button variant="outline" className="gap-2">
+                <Activity className="h-4 w-4" />
+                Symptom Tracker
+              </Button>
+            </Link>
             <span className="text-sm text-muted-foreground">
               Logged in as {user?.username}
             </span>
