@@ -1,55 +1,33 @@
 import { Link } from "wouter";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
-  LogOut,
-  Activity,
-  MessageCircle,
-  Stethoscope,
-  Wind,
-  Home,
-  AlertTriangle,
-  Heart,
-  Syringe
-} from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LogOut, Activity, MessageCircle, Stethoscope as StethoscopeIcon } from "lucide-react";
 
 export default function EducationPage() {
   const { user, logoutMutation } = useAuth();
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="border-b sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
+      <nav className="border-b">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/">
             <span className="text-xl font-semibold cursor-pointer flex items-center gap-2">
-              <Stethoscope className="h-6 w-6 text-primary" />
+              <StethoscopeIcon className="h-6 w-6 text-primary" />
               AsthmaAI Assistant
             </span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/symptoms">
-              <Button variant="outline" className="gap-2">
-                <Activity className="h-4 w-4" />
-                Symptom Tracker
-              </Button>
-            </Link>
             <Link href="/chat">
               <Button variant="outline" className="gap-2">
                 <MessageCircle className="h-4 w-4" />
                 Chat Assistant
+              </Button>
+            </Link>
+            <Link href="/symptoms">
+              <Button variant="outline" className="gap-2">
+                <Activity className="h-4 w-4" />
+                Symptom Tracker
               </Button>
             </Link>
             <span className="text-sm text-muted-foreground">
@@ -68,175 +46,94 @@ export default function EducationPage() {
 
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-4">Asthma Management Guide</h1>
-            <p className="text-lg text-muted-foreground">
-              Comprehensive information and tips to help you manage your asthma effectively.
-              Remember, this information is general guidance - always consult your healthcare
-              provider for personalized advice.
-            </p>
-          </div>
+          <h1 className="text-3xl font-bold mb-6">Asthma Management Guide</h1>
 
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <Card className="bg-red-50 border-red-200">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <AlertTriangle className="h-5 w-5 text-red-500" />
-                  Emergency Action
-                </CardTitle>
-                <CardDescription>Know when to seek immediate help</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-red-700">
-                  <li>• Severe breathing difficulty</li>
-                  <li>• Blue lips or fingernails</li>
-                  <li>• Unable to speak in full sentences</li>
-                  <li>• Quick-relief inhaler not helping</li>
-                  <li className="font-bold">Call emergency services immediately if you experience these symptoms</li>
-                </ul>
-              </CardContent>
-            </Card>
+          {/* Emergency Section */}
+          <Card className="mb-8 border-red-200 bg-red-50">
+            <CardHeader>
+              <CardTitle className="text-red-700">Emergency Warning Signs</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2 text-red-700">
+                <li>• Severe difficulty breathing or shortness of breath</li>
+                <li>• Chest pain or pressure</li>
+                <li>• Difficulty talking or walking</li>
+                <li>• Blue lips or fingernails</li>
+                <li>• Quick-relief inhaler not helping</li>
+                <li className="font-bold mt-4">
+                  If you experience these symptoms, seek emergency medical care immediately
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
 
-            <Card className="bg-green-50 border-green-200">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Heart className="h-5 w-5 text-green-500" />
-                  Daily Management
-                </CardTitle>
-                <CardDescription>Key steps for daily asthma control</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-green-700">
-                  <li>• Take medications as prescribed</li>
-                  <li>• Monitor and record symptoms</li>
-                  <li>• Avoid known triggers</li>
-                  <li>• Keep rescue inhaler nearby</li>
-                  <li>• Follow your asthma action plan</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
+          {/* Daily Management */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle>Daily Asthma Management</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="font-semibold mb-2">Medication Tips</h3>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• Take controller medications as prescribed</li>
+                    <li>• Keep rescue inhaler readily available</li>
+                    <li>• Learn proper inhaler technique</li>
+                    <li>• Track medication usage</li>
+                  </ul>
+                </div>
 
-          <Accordion type="single" collapsible className="mb-8">
-            <AccordionItem value="triggers">
-              <AccordionTrigger className="text-lg">
-                <div className="flex items-center gap-2">
-                  <Wind className="h-5 w-5" />
-                  Common Triggers
+                <div>
+                  <h3 className="font-semibold mb-2">Common Triggers</h3>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• Allergens (pollen, dust, mold)</li>
+                    <li>• Air pollution and smoke</li>
+                    <li>• Exercise and physical activity</li>
+                    <li>• Weather changes</li>
+                    <li>• Respiratory infections</li>
+                  </ul>
                 </div>
-              </AccordionTrigger>
-              <AccordionContent className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <Card>
-                    <CardContent className="pt-6">
-                      <h4 className="font-semibold mb-2">Environmental</h4>
-                      <ul className="space-y-1 text-muted-foreground">
-                        <li>• Pollen and mold</li>
-                        <li>• Dust mites</li>
-                        <li>• Pet dander</li>
-                        <li>• Air pollution</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardContent className="pt-6">
-                      <h4 className="font-semibold mb-2">Activities</h4>
-                      <ul className="space-y-1 text-muted-foreground">
-                        <li>• Exercise</li>
-                        <li>• Cold air exposure</li>
-                        <li>• Strong emotions</li>
-                        <li>• Respiratory infections</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
 
-            <AccordionItem value="medications">
-              <AccordionTrigger className="text-lg">
-                <div className="flex items-center gap-2">
-                  <Syringe className="h-5 w-5" />
-                  Understanding Medications
+                <div>
+                  <h3 className="font-semibold mb-2">Lifestyle Recommendations</h3>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• Maintain a clean living environment</li>
+                    <li>• Monitor air quality</li>
+                    <li>• Stay hydrated</li>
+                    <li>• Get regular exercise as tolerated</li>
+                    <li>• Manage stress levels</li>
+                  </ul>
                 </div>
-              </AccordionTrigger>
-              <AccordionContent className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <Card>
-                    <CardContent className="pt-6">
-                      <h4 className="font-semibold mb-2">Controller Medications</h4>
-                      <p className="text-sm text-muted-foreground mb-2">
-                        Taken daily to prevent symptoms and reduce inflammation
-                      </p>
-                      <ul className="space-y-1 text-muted-foreground">
-                        <li>• Inhaled corticosteroids</li>
-                        <li>• Long-acting beta agonists</li>
-                        <li>• Combination inhalers</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardContent className="pt-6">
-                      <h4 className="font-semibold mb-2">Quick-Relief Medications</h4>
-                      <p className="text-sm text-muted-foreground mb-2">
-                        Used for immediate relief of symptoms
-                      </p>
-                      <ul className="space-y-1 text-muted-foreground">
-                        <li>• Short-acting beta agonists</li>
-                        <li>• Rescue inhalers</li>
-                        <li>• Nebulizer treatments</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
+              </div>
+            </CardContent>
+          </Card>
 
-            <AccordionItem value="lifestyle">
-              <AccordionTrigger className="text-lg">
-                <div className="flex items-center gap-2">
-                  <Home className="h-5 w-5" />
-                  Lifestyle Management
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-4">
-                  <Card>
-                    <CardContent className="pt-6">
-                      <h4 className="font-semibold mb-2">Home Environment</h4>
-                      <ul className="space-y-2 text-muted-foreground">
-                        <li>• Use air purifiers with HEPA filters</li>
-                        <li>• Keep humidity levels between 30-50%</li>
-                        <li>• Vacuum regularly with a HEPA vacuum</li>
-                        <li>• Use allergen-proof bed covers</li>
-                        <li>• Remove carpets if possible</li>
-                        <li>• Keep pets out of bedrooms</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardContent className="pt-6">
-                      <h4 className="font-semibold mb-2">Daily Habits</h4>
-                      <ul className="space-y-2 text-muted-foreground">
-                        <li>• Monitor daily air quality reports</li>
-                        <li>• Exercise in appropriate conditions</li>
-                        <li>• Practice stress management techniques</li>
-                        <li>• Maintain a healthy diet</li>
-                        <li>• Stay hydrated</li>
-                        <li>• Get enough sleep</li>
-                      </ul>
-                    </CardContent>
-                  </Card>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          {/* Action Plan */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle>Your Asthma Action Plan</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="mb-4 text-muted-foreground">
+                Work with your healthcare provider to create a personalized asthma action plan. 
+                This should include:
+              </p>
+              <ul className="space-y-2 text-muted-foreground">
+                <li>• List of daily medications</li>
+                <li>• Instructions for worsening symptoms</li>
+                <li>• Emergency contact information</li>
+                <li>• Triggers to avoid</li>
+              </ul>
+            </CardContent>
+          </Card>
 
+          {/* Chat Prompt */}
           <div className="bg-muted p-6 rounded-lg">
-            <h3 className="text-lg font-semibold mb-2">Need More Help?</h3>
+            <h3 className="text-lg font-semibold mb-2">Have Questions?</h3>
             <p className="text-muted-foreground mb-4">
-              Our AI assistant can provide more detailed information and answer specific
-              questions about asthma management.
+              Our AI assistant can provide more detailed information about asthma management
+              and answer your specific questions.
             </p>
             <div className="flex gap-4">
               <Link href="/chat">

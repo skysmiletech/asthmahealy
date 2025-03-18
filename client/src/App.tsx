@@ -18,7 +18,8 @@ function Router() {
       <Route path="/auth" component={AuthPage} />
       <ProtectedRoute path="/chat" component={ChatPage} />
       <ProtectedRoute path="/symptoms" component={SymptomsPage} />
-      <ProtectedRoute path="/education" component={EducationPage} />
+      {/* Temporarily commenting out education page route for debugging
+      <ProtectedRoute path="/education" component={EducationPage} /> */}
       <Route component={NotFound} />
     </Switch>
   );
