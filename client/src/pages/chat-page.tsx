@@ -1,133 +1,30 @@
-import { useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
-import { Loader2, SendIcon, LogOut, Activity, BookOpen, Leaf, StethoscopeIcon } from "lucide-react";
-import { apiRequest, queryClient } from "@/lib/queryClient";
-import type { Message } from "@shared/schema";
 import { Link } from "wouter";
 
 export default function ChatPage() {
   const { user, logoutMutation } = useAuth();
-  const [message, setMessage] = useState("");
-
-  const { data: messages, isLoading: isLoadingMessages } = useQuery<Message[]>({
-    queryKey: ["/api/messages"],
-  });
-
-  const chatMutation = useMutation({
-    mutationFn: async (content: string) => {
-      const res = await apiRequest("POST", "/api/chat", {
-        content,
-        isBot: false,
-      });
-      return res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/messages"] });
-    },
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!message.trim()) return;
-
-    chatMutation.mutate(message);
-    setMessage("");
-  };
 
   return (
     <div className="min-h-screen bg-background">
       <nav className="border-b">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/">
-            <span className="text-xl font-semibold cursor-pointer flex items-center gap-2">
-              <div className="flex items-center gap-1">
-                <Leaf className="h-6 w-6 text-primary" />
-                <StethoscopeIcon className="h-6 w-6" />
-              </div>
-              AsthmaAI Assistant
-            </span>
+            <span className="font-semibold cursor-pointer">Asthma Assistant</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/education">
-              <Button variant="outline" className="gap-2">
-                <BookOpen className="h-4 w-4" />
-                Learn More
-              </Button>
-            </Link>
-            <Link href="/symptoms">
-              <Button variant="outline" className="gap-2">
-                <Activity className="h-4 w-4" />
-                Symptom Tracker
-              </Button>
-            </Link>
-            <span className="text-sm text-muted-foreground">
-              Logged in as {user?.username}
-            </span>
-            <Button
-              variant="ghost"
-              size="icon"
+            <span>{user?.username}</span>
+            <button
               onClick={() => logoutMutation.mutate()}
+              className="text-sm text-muted-foreground hover:text-foreground"
             >
-              <LogOut className="h-5 w-5" />
-            </Button>
+              Logout
+            </button>
           </div>
         </div>
       </nav>
 
       <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-          <div className="h-[600px] overflow-y-auto mb-4 space-y-4">
-            {isLoadingMessages ? (
-              <div className="flex justify-center items-center h-full">
-                <Loader2 className="h-8 w-8 animate-spin" />
-              </div>
-            ) : messages?.length === 0 ? (
-              <div className="text-center text-muted-foreground py-8">
-                Start a conversation about your asthma concerns
-              </div>
-            ) : (
-              messages?.map((msg) => (
-                <Card
-                  key={msg.id}
-                  className={`p-4 ${
-                    msg.isBot
-                      ? "bg-muted"
-                      : "bg-primary text-primary-foreground"
-                  }`}
-                >
-                  <p>{msg.content}</p>
-                  <span className="text-xs opacity-70 block mt-2">
-                    {new Date(msg.timestamp).toLocaleTimeString()}
-                  </span>
-                </Card>
-              ))
-            )}
-          </div>
-
-          <form onSubmit={handleSubmit} className="flex gap-2">
-            <Input
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Type your message..."
-              disabled={chatMutation.isPending}
-            />
-            <Button
-              type="submit"
-              disabled={chatMutation.isPending || !message.trim()}
-            >
-              {chatMutation.isPending ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <SendIcon className="h-4 w-4" />
-              )}
-            </Button>
-          </form>
-          </div>
+        <div className="max-w-3xl mx-auto">
           <div className="bg-white rounded-lg shadow">
             <iframe
               src="https://healthcare-bot-aoqlcrr2zufq6.azurewebsites.net/"
