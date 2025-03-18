@@ -79,7 +79,8 @@ export default function ChatPage() {
       </nav>
 
       <main className="container mx-auto px-4 py-8">
-        <div className="max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
           <div className="h-[600px] overflow-y-auto mb-4 space-y-4">
             {isLoadingMessages ? (
               <div className="flex justify-center items-center h-full">
@@ -126,6 +127,14 @@ export default function ChatPage() {
               )}
             </Button>
           </form>
+          </div>
+          <div className="bg-white rounded-lg shadow">
+            <iframe
+              src="https://healthcare-bot-aoqlcrr2zufq6.azurewebsites.net/"
+              className="w-full h-[600px] rounded-lg"
+              title="Healthcare Bot"
+            />
+          </div>
         </div>
       </main>
     </div>
